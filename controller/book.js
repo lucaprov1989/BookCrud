@@ -1,26 +1,49 @@
 /*Backend Actions*/
-
 var mongoose = require('../config/mongodb');
 var controller_common = require('./common');
-var model_tris = require('../model/book');
+var Book = require('../model/Book.js');
 
 var controller = {
     _name: "book",
-    get: function(req, res) {
-        res.json('im in!');
+    //GET ALL BOOKS
+    index: function(req, res) {
+            res.json('no action found');
+    },
+    //GET ALL BOOKS
+    getAll: function(req, res) {
+        Book.find(function (err, books) {
+            if (err) return next(err);
+            res.json(books);
+        });
 
     },
+    //GET ONE FROM ID
+    getOne: function(req, res) {
+        Book.findById(req.params.id, function (err, book) {
+            if (err) return next(err);
+            res.json(book);
+        });
+    },
+    //SAVE IT
     save: function(req, res) {
-        res.json({result: 'ok'});
-
+        Book.create(req.body, function (err, book) {
+            if (err) return next(err);
+            res.json(book);
+        });
     },
+    //UPDATE IT
     update: function(req, res) {
-        res.json({result: 'ok'});
-
+        Book.findByIdAndUpdate(req.params.id, req.body, function (err, book) {
+            if (err) return next(err);
+            res.json(book);
+        });
     },
+    //DELETE IT 
     delete: function(req, res) {
-        res.json({result: 'ok'});
-
+        Book.findByIdAndRemove(req.params.id, req.body, function (err, book) {
+            if (err) return next(err);
+            res.json(book);
+        });
     }
 
 };

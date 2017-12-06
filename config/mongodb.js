@@ -1,4 +1,4 @@
 //mongo settings
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://set_db');
+mongoose.connect('mongodb://localhost:27017/myapp/Books');
 exports.mongoose = mongoose;
